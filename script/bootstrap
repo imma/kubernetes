@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+function main {
+  local shome="$(cd -P -- "${BASH_SOURCE%/*}/.." && pwd -P)"
+  source "$shome/script/profile"
+
+  export GOPATH="$shome/vendor/go"
+  export PATH="$GOPATH/bin:$PATH"
+  go get -v "k8s.io/kubernetes"
+  cd "$GOPATH/src"
+  cd k8s.io/kubernetes
+  git fetch --tags
+  git reset --hard "v${KUBERNETES_VERSION}"
+  make
+
+  mkdir -p "$shome/bin"
+  (set +f; cp "$GOPATH/src/k8s.io/kubernetes/_output/local/bin"/*/*/* "$shome/bin/")
+  #rm -rf "$GOPATH"
+}
+
+main "$@"

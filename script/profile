@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+function _kubernetes_profile {
+  local shome="${_kubernetes_home:-"$(cd -P -- "${BASH_SOURCE%/*}/.." && pwd -P)"}"
+  PATH="$shome/bin:$PATH"
+
+  KUBERNETES_VERSION='1.5.1'
+}
+
+_kubernetes_profile
