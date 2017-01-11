@@ -15,7 +15,7 @@ function main {
 
   mkdir -p "$shome/bin"
   (set +f; cp "$GOPATH/src/k8s.io/kubernetes/_output/local/bin"/*/*/* "$shome/bin/")
-  #rm -rf "$GOPATH"
+  rm -rf "$GOPATH"
 }
 
 main "$@"
