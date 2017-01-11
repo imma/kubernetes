@@ -4,18 +4,18 @@ function main {
   local shome="$(cd -P -- "${BASH_SOURCE%/*}/.." && pwd -P)"
   source "$shome/script/profile"
 
-  export GOPATH="$shome/vendor/go"
-  export PATH="$GOPATH/bin:$PATH"
-  go get -v "k8s.io/kubernetes"
-  cd "$GOPATH/src"
-  cd k8s.io/kubernetes
-  git fetch --tags
-  git reset --hard "v${KUBERNETES_VERSION}"
-  make
+  local url_kubernetes_Darwin="https://dl.k8s.io/v${KUBERNETES_VERSION}/kubernetes-client-darwin-amd64.tar.gz"
+  local url_kubernetes_Linux="https://dl.k8s.io/v$KUBERNETES_VERSION}/kubernetes-client-linux-arm64.tar.gz"
 
-  mkdir -p "$shome/bin"
-  (set +f; cp "$GOPATH/src/k8s.io/kubernetes/_output/local/bin"/*/*/* "$shome/bin/")
-  rm -rf "$GOPATH"
+  #https://dl.k8s.io/v1.5.1/kubernetes-server-linux-amd64.tar.gz
+
+  local url_kubernetes="url_kubernetes_$(uname -s)"
+  local fnm_kubernetes="$(basename "${!url_kubernetes}")"
+  cache curl "$fnm_kubernetes" "${!url_kubernetes}"
+
+  pushd "$shome/vendor"
+  tar xvfz "${BASEBOX_CACHE}/curl/$fnm_kubernetes"
+  popd
 }
 
 main "$@"
