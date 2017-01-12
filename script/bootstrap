@@ -6,7 +6,6 @@ function main {
 
   local url_kubernetes_Darwin="https://dl.k8s.io/v${KUBERNETES_VERSION}/kubernetes-client-darwin-amd64.tar.gz"
   local url_kubernetes_Linux="https://dl.k8s.io/v${KUBERNETES_VERSION}/kubernetes-client-linux-arm64.tar.gz"
-  local url_server_Linux="https://dl.k8s.io/v${KUBERNETES_VERSION}/kubernetes-server-linux-amd64.tar.gz"
 
   local url_kubernetes="url_kubernetes_$(uname -s)"
   local fnm_kubernetes="$(basename "${!url_kubernetes}")"
@@ -16,18 +15,6 @@ function main {
   pushd "$shome/vendor"
   tar xvfz "${BASEBOX_CACHE}/curl/$fnm_kubernetes"
   popd
-
-  case "$(uname -s)" in
-    Linux)
-      local url_server="url_server_$(uname -s)"
-      local fnm_server="$(basename "${!url_server}")"
-      cache curl "$fnm_server" "${!url_server}"
-
-      pushd "$shome/vendor"
-      tar xvfz "${BASEBOX_CACHE}/curl/$fnm_server"
-      popd
-      ;;
-  esac
 }
 
 main "$@"
