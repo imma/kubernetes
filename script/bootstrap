@@ -8,7 +8,7 @@ function main {
   local url_kubernetes_Linux="https://dl.k8s.io/v${KUBERNETES_VERSION}/kubernetes-client-linux-amd64.tar.gz"
 
   local url_kubernetes="url_kubernetes_$(uname -s)"
-  local fnm_kubernetes="$(basename "${!url_kubernetes}")"
+  local fnm_kubernetes="${KUBERNETES_VERSION}-$(basename "${!url_kubernetes}")"
   cache curl "$fnm_kubernetes" "${!url_kubernetes}"
 
   mkdir -p "$shome/vendor"
