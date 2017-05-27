@@ -4,7 +4,7 @@ function _kubernetes_profile {
   local shome="${_kubernetes_home:-"$(cd -P -- "${BASH_SOURCE%/*}/.." && pwd -P)"}"
   PATH="$shome/vendor/kubernetes/client/bin:$PATH"
 
-  export KUBERNETES_VERSION='1.6.3'
+  export KUBERNETES_VERSION='1.6.4'
 }
 
 _kubernetes_profile
