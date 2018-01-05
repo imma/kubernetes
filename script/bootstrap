@@ -13,7 +13,7 @@ function main {
 
   mkdir -p "$shome/vendor"
   pushd "$shome/vendor"
-  tar xfz "/data/cache/curl/$fnm_kubernetes"
+  tar xfz "$DATA/cache/curl/$fnm_kubernetes"
   popd
 }
 
